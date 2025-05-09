@@ -20,7 +20,7 @@ def get_recent_tracks(username, limit=50, max_pages=3): # max (3 x 50 = 150 trac
             "limit": limit,
             "page": page
         }
-        response = requests.get(BASE_URL, params=params)
+        response = requests.get(BASE_URL, params=params, timeout=10)
         tracks = response.json().get('recenttracks', {}).get('track', [])
         if not tracks:
             break
@@ -43,7 +43,7 @@ def get_top_tracks(username, limit=50, max_pages=3):
             "limit": limit,
             "page": page
         }
-        response = requests.get(BASE_URL, params=params)
+        response = requests.get(BASE_URL, params=params, timeout=10)
         tracks = response.json().get('toptracks', {}).get('track', [])
         if not tracks:
             break
@@ -66,6 +66,7 @@ def format_markdown_table(data, headers):
     return '\n'.join(rows)
 
 def main(profile_url):
+    """Main function to fetch and display Last.fm stats."""
     username = profile_url.rstrip('/').split('/')[-1]
 
     recent = get_recent_tracks(username)
