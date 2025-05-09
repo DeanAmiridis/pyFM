@@ -24,13 +24,13 @@ pip install requests
 ## 🚀 Usage
 
 ```bash
-python pyFM.py https://www.last.fm/user/your_username
+python main.py https://www.last.fm/user/your_username
 ```
 
 ### 🧠 Example
 
 ```bash
-python pyFM.py https://www.last.fm/user/dean_fx
+python main.py https://www.last.fm/user/dean_fx
 ```
 
 📄 This will:
