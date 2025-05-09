@@ -8,7 +8,7 @@ import requests
 API_KEY = ""  # Replace this with your API key (https://www.last.fm/api/account/create)
 BASE_URL = "http://ws.audioscrobbler.com/2.0/"
 
-def get_recent_tracks(username, limit=50, max_pages=3): # max_pages (3 x 50 = 150 tracks) - API Limit is 200
+def get_recent_tracks(username, limit=50, max_pages=3): # max (3 x 50 = 150 tracks)-API Limit 200
     """Fetch recent tracks for the given Last.fm user using the API."""
     all_tracks = []
     for page in range(1, max_pages + 1):
@@ -32,6 +32,7 @@ def get_recent_tracks(username, limit=50, max_pages=3): # max_pages (3 x 50 = 15
     return all_tracks
 
 def get_top_tracks(username, limit=50, max_pages=3):
+    """Fetch top tracks for the given Last.fm user using the API."""
     all_tracks = []
     for page in range(1, max_pages + 1):
         params = {
@@ -52,8 +53,9 @@ def get_top_tracks(username, limit=50, max_pages=3):
             plays = track['playcount']
             all_tracks.append({'track': name, 'artist': artist, 'plays': plays})
     return all_tracks
-    
+
 def format_markdown_table(data, headers):
+    """Format data into a markdown table."""
     header_row = '| ' + ' | '.join(headers) + ' |'
     separator = '| ' + ' | '.join(['---'] * len(headers)) + ' |'
     rows = [header_row, separator]
@@ -65,7 +67,7 @@ def format_markdown_table(data, headers):
 
 def main(profile_url):
     username = profile_url.rstrip('/').split('/')[-1]
-    
+
     recent = get_recent_tracks(username)
     top = get_top_tracks(username)
 
@@ -73,7 +75,7 @@ def main(profile_url):
 
     md_output.append(f"## Recent Tracks for **{username}**\n")
     md_output.append(format_markdown_table(recent, ['Track', 'Artist', 'Time']))
-    
+
     md_output.append(f"\n\n## Top Tracks for **{username}** (All Time)\n")
     md_output.append(format_markdown_table(top, ['Track', 'Artist', 'Plays']))
 
