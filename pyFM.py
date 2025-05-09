@@ -1,10 +1,15 @@
-import requests
+"""
+Last.fm scraper script to fetch recent and top tracks and output markdown data.
+"""
+
 import sys
+import requests
 
 API_KEY = ""  # Replace this with your API key (https://www.last.fm/api/account/create)
 BASE_URL = "http://ws.audioscrobbler.com/2.0/"
 
 def get_recent_tracks(username, limit=50, max_pages=3): # max_pages (3 x 50 = 150 tracks) - API Limit is 200
+    """Fetch recent tracks for the given Last.fm user using the API."""
     all_tracks = []
     for page in range(1, max_pages + 1):
         params = {
